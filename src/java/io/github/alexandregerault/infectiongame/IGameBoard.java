@@ -1,6 +1,8 @@
 package io.github.alexandregerault.infectiongame;
 
 import java.awt.Point;
+import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 public interface IGameBoard {
@@ -20,7 +22,7 @@ public interface IGameBoard {
 	
 	boolean moveInBounds(IMove _move);
 	
-	Vector<Move> allMoves(Colors _player);
+	Set<Move> allMoves(Colors _player);
 	
 	void addPawn(Point _square, Colors _player);
 	

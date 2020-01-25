@@ -12,14 +12,14 @@ public class Move implements IMove {
     /**
      * Basic move constructor
      *
-     * @param _direction The direction of the movement
-     * @param _distance  The distance (1 or 2) of the movement
-     * @param _start     The square before the movement
+     * @param direction_ The direction of the movement
+     * @param distance_  The distance (1 or 2) of the movement
+     * @param start_     The square before the movement
      */
-    Move(Directions _direction, int _distance, Point _start) {
-        this.direction = _direction;
-        this.distance = _distance;
-        this.start = _start;
+    Move(Directions direction_, int distance_, Point start_) {
+        this.direction = direction_;
+        this.distance = distance_;
+        this.start = start_;
     }
 
 
