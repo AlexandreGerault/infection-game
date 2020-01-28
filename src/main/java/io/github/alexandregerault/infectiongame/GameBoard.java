@@ -3,7 +3,6 @@ package io.github.alexandregerault.infectiongame;
 import java.awt.Point;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Vector;
 
 public final class GameBoard implements IGameBoard {
 
@@ -24,14 +23,20 @@ public final class GameBoard implements IGameBoard {
     }
 
 
-    /**
-     * Copy constructor
-     *
-     * @param board_ The copied board
-     */
-    public GameBoard(GameBoard board_) {
-        this.grid = board_.grid;
-    }
+	/**
+	 * Copy constructor
+	 *
+	 * @param board_ The copied board
+	 */
+	public GameBoard(GameBoard board_) {
+	    this.grid = new Colors[board_.width()][board_.height()];
+	    
+	    for (int line = 0; line < grid.length; line++) {
+	        for (int column = 0; column < grid[line].length; column++) {
+	            this.grid[line][column] = board_.grid()[line][column];
+	        }
+	    }
+	}
 
 
     /**
@@ -182,7 +187,7 @@ public final class GameBoard implements IGameBoard {
      */
     @Override
     public void infectAdjacentCells(Point square_) {
-        if (square_.x + 1 < grid.length && grid[square_.x + 1][square_.y] != null) {
+		if (square_.x + 1 < grid.length && grid[square_.x + 1][square_.y] != null) {
             grid[square_.x + 1][square_.y] = grid[square_.x][square_.y];
         }
         if (square_.x - 1 > 0 && grid[square_.x - 1][square_.y] != null) {
@@ -220,6 +225,11 @@ public final class GameBoard implements IGameBoard {
         grid[move_.startingSquare().x][move_.startingSquare().y] = null;
     }
 
+	
+	public Colors[][] grid() {
+		return this.grid;	
+	}
+    
     public String toString() {
         StringBuilder output = new StringBuilder(new String());
 

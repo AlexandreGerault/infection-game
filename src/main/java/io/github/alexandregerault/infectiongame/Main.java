@@ -41,19 +41,19 @@ public class Main {
                 }
 
                 //On sélectionne le coup au meilleur score
-                /*Map.Entry<Move, Float> toPlay = null;
+                Map.Entry<Move, Float> toPlay = null;
                 for (Map.Entry<Move, Float>entry : playerPossibilities.entrySet()) {
                     if (toPlay == null || entry.getValue().compareTo(toPlay.getValue()) > 0) {
                         toPlay = entry;
                     }
-                }*/
+                }
 
-                // node = node.newState(toPlay.getKey(), Colors.WHITE);
+                node = node.newState(toPlay.getKey(), Colors.WHITE);
                 System.out.print(node.board().toString());
                 System.out.println("----------------------------------");
             }
 
-            /*System.out.println("La partie commence");
+            System.out.println("La partie commence");
             //On lance la boucle
             while (! node.board().gameOver(node.player())) {
                 Map<Move, Float> playerPossibilities = new HashMap<Move, Float>();
@@ -77,9 +77,9 @@ public class Main {
                 node = node.newState(toPlay.getKey());
                 System.out.print(node.board().toString());
                 System.out.println("----------------------------------");
-            }*/
+            }
 
-            System.out.println("Fin du jeu");
+            System.out.println("Fin du jeu. Joueur perdant : " + node.player().toString());
 
 
         } catch (NumberFormatException e) {
