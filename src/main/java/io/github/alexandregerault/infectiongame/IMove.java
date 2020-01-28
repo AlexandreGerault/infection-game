@@ -9,5 +9,5 @@ public interface IMove {
 
 	Point startingSquare();
 	
-	Point arrivalPoint();
+	Point end();
 }

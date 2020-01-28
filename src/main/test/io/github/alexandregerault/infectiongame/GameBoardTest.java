@@ -41,10 +41,20 @@ class GameBoardTest {
 
     @Test
     void evaluate() {
+    	GameBoard board = new GameBoard(4, 4);
+    	
+    	assertEquals(0.5, board.evaluate(Colors.BLACK));
+    	assertEquals(0.5, board.evaluate(Colors.WHITE));
     }
 
     @Test
     void gameOver() {
+    	GameBoard board = new GameBoard(2, 2);
+    	
+    	board.addPawn(new Point(0,1), Colors.BLACK);
+    	board.addPawn(new Point(1,1), Colors.BLACK);
+    	
+    	assertTrue(board.gameOver(Colors.WHITE));
     }
 
     @Test
@@ -94,14 +104,31 @@ class GameBoardTest {
 
     @Test
     void infectAdjacentCells() {
+    	GameBoard board = new GameBoard(2,1);
+    	
+    	board.infectAdjacentCells(new Point(0,0));
+    	
+    	assertEquals(Colors.BLACK, board.pawnAt(new Point(0,0)));
+    	assertEquals(Colors.BLACK, board.pawnAt(new Point(1,0)));
     }
 
     @Test
     void addPawn() {
+    	GameBoard board = new GameBoard(3,3);
+    	
+    	board.addPawn(new Point(1,1), Colors.BLACK);
+    	
+    	assertEquals(Colors.BLACK, board.pawnAt(new Point(1,1)));
     }
 
     @Test
     void movePawn() {
+    	GameBoard board = new GameBoard(3,3);
+    	
+    	board.movePawn(new Move(Directions.DOWN, 2, new Point(0,0)));
+    	
+    	assertEquals(null, board.pawnAt(new Point(0,0)));
+    	assertEquals(Colors.BLACK, board.pawnAt(new Point(0,2)));
     }
 
     @Test

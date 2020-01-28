@@ -7,6 +7,7 @@ public class Move implements IMove {
     private Directions direction;
     private int distance;
     private Point start;
+    private Point end;
 
 
     /**
@@ -20,6 +21,7 @@ public class Move implements IMove {
         this.direction = direction_;
         this.distance = distance_;
         this.start = start_;
+        this.end = new Point(start.x + distance * direction.x, start.y + distance * direction.y);
     }
 
 
@@ -59,8 +61,8 @@ public class Move implements IMove {
      * @return The arrival Point
      */
     @Override
-    public Point arrivalPoint() {
-        return new Point(start.x + distance * direction.x, start.y + distance * direction.y);
+    public Point end() {
+        return this.end;
     }
 
 }

@@ -26,5 +26,7 @@ public interface IGameBoard {
 	
 	void movePawn(IMove _move);
 	
+	Colors pawnAt(Point square_);
+	
 	void infectAdjacentCells(Point _square);
 }

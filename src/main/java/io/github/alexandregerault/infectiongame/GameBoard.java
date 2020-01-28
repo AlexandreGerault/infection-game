@@ -28,12 +28,12 @@ public final class GameBoard implements IGameBoard {
 	 *
 	 * @param board_ The copied board
 	 */
-	public GameBoard(GameBoard board_) {
+	public GameBoard(GameBoard board_) {		
 	    this.grid = new Colors[board_.width()][board_.height()];
 	    
 	    for (int line = 0; line < grid.length; line++) {
 	        for (int column = 0; column < grid[line].length; column++) {
-	            this.grid[line][column] = board_.grid()[line][column];
+	            this.grid[line][column] = board_.grid[line][column];
 	        }
 	    }
 	}
@@ -111,7 +111,9 @@ public final class GameBoard implements IGameBoard {
      */
     @Override
     public boolean gameOver(Colors player_) {
-        return allMoves(player_).size() == 0 || pawns(player_) == 0;
+        return allMoves(player_).size() == 0 
+        		|| pawns(player_) == 0 
+        		|| pawns(player_.equals(Colors.BLACK) ? Colors.WHITE : Colors.BLACK) == 0;
     }
 
 
@@ -124,8 +126,8 @@ public final class GameBoard implements IGameBoard {
     @Override
     public boolean movePossible(IMove move_) {
         Point arrival = new Point(
-                move_.arrivalPoint().x,
-                move_.arrivalPoint().y
+                move_.end().x,
+                move_.end().y
         );
 
         if (moveInBounds(move_)) {
@@ -144,10 +146,10 @@ public final class GameBoard implements IGameBoard {
      */
     @Override
     public boolean moveInBounds(IMove move_) {
-        return move_.arrivalPoint().x >= 0
-                && move_.arrivalPoint().x < grid.length
-                && move_.arrivalPoint().y >= 0
-                && move_.arrivalPoint().y < grid.length;
+        return move_.end().x >= 0
+                && move_.end().x < grid.length
+                && move_.end().y >= 0
+                && move_.end().y < grid.length;
     }
 
 
@@ -190,13 +192,13 @@ public final class GameBoard implements IGameBoard {
 		if (square_.x + 1 < grid.length && grid[square_.x + 1][square_.y] != null) {
             grid[square_.x + 1][square_.y] = grid[square_.x][square_.y];
         }
-        if (square_.x - 1 > 0 && grid[square_.x - 1][square_.y] != null) {
+        if (square_.x - 1 >= 0 && grid[square_.x - 1][square_.y] != null) {
             grid[square_.x - 1][square_.y] = grid[square_.x][square_.y];
         }
         if (square_.y + 1 < grid[0].length && grid[square_.x][square_.y + 1] != null) {
             grid[square_.x][square_.y + 1] = grid[square_.x][square_.y];
         }
-        if (square_.y - 1 > 0 && grid[square_.x][square_.y - 1] != null) {
+        if (square_.y - 1 >= 0 && grid[square_.x][square_.y - 1] != null) {
             grid[square_.x][square_.y - 1] = grid[square_.x][square_.y];
         }
     }
@@ -221,14 +223,9 @@ public final class GameBoard implements IGameBoard {
      */
     @Override
     public void movePawn(IMove move_) {
-        grid[move_.arrivalPoint().x][move_.arrivalPoint().y] = grid[move_.startingSquare().x][move_.startingSquare().y];
+        grid[move_.end().x][move_.end().y] = grid[move_.startingSquare().x][move_.startingSquare().y];
         grid[move_.startingSquare().x][move_.startingSquare().y] = null;
     }
-
-	
-	public Colors[][] grid() {
-		return this.grid;	
-	}
     
     public String toString() {
         StringBuilder output = new StringBuilder(new String());
@@ -242,5 +239,17 @@ public final class GameBoard implements IGameBoard {
 
         return String.valueOf(output);
     }
+
+
+    /**
+     * Kind of grid accessor
+     * 
+     * @param square_ The coordinate we want to get the value
+     * @return The player's color (or null!)
+     */
+	@Override
+	public Colors pawnAt(Point square_) {
+		return this.grid[square_.x][square_.y];
+	}
 
 }
